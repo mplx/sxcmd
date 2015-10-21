@@ -1,0 +1,33 @@
+#!/usr/bin/env php
+<?php
+/**
+ * sxcmd
+ * simple commandline interface to a skylable sx cluster
+ *
+ * @package     sxcmd
+ * @author      Martin Pircher <mplx+coding@donotreply.at>
+ * @copyright   Copyright (c) 2014-2015, Martin Pircher
+ * @license     http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
+ **/
+ 
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use Symfony\Component\Console\Application;
+
+use mplx\sxcmd\VolInfoCommand;
+
+try {
+	$application = new Application('sxcmd', '0.0.1');
+	
+	$application->add(new VolInfoCommand());
+	
+	$application->run();
+} catch (\Exception $e) {
+    if (SXB_DEBUG) {
+        echo "<h1>Something went wrong...</h1>";
+        echo "<h2>Debug Mode</h2>";
+        echo $e->getMessage();
+    } else {
+        echo "Something went wrong...";
+    }
+}
