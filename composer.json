@@ -1,6 +1,7 @@
 {
     "name": "mplx/sxcmd",
-    "description": "PHP Commandline interface to Skylable SX cluster",
+    "description": "Commandline interface to Skylable SX cluster",
+    "license": "BSD-3-Clause",
     "homepage": "https://bitbucket.org/mplx/sxcmd/",
     "authors": [
         {
@@ -12,10 +13,11 @@
         "php": ">=5.4.0",
         "mplx/skylablesx": "dev-master",
 		"symfony/console": "~2.7",
-        "symfony/yaml": "~2.6"
+        "symfony/yaml": "~2.7",
+        "herrera-io/phar-update": "1.*"
     },
     "require-dev": {
-        "symfony/var-dumper": "~2.6"
+        "symfony/var-dumper": "~2.7"
     },
 	"autoload": {
         "psr-4": { "": "src" }

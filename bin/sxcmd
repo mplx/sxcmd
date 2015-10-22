@@ -9,25 +9,28 @@
  * @copyright   Copyright (c) 2014-2015, Martin Pircher
  * @license     http://opensource.org/licenses/BSD-3-Clause BSD-3-Clause
  **/
- 
-require_once __DIR__ . '/../vendor/autoload.php';
+
+require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 
-use mplx\sxcmd\VolInfoCommand;
+use mplx\sxcmd\UserListCommand;
+use mplx\sxcmd\VolumeListCommand;
+use mplx\sxcmd\VolumeLocateCommand;
+use mplx\sxcmd\SelfUpdateCommand;
+
+set_time_limit(0);
 
 try {
-	$application = new Application('sxcmd', '0.0.1');
-	
-	$application->add(new VolInfoCommand());
-	
+	$application = new Application('sxcmd', '@sxcmd_version@');
+
+    $application->add(new UserListCommand());
+	$application->add(new VolumeListCommand());
+    $application->add(new VolumeLocateCommand());
+    $application->add(new SelfUpdateCommand());
+
 	$application->run();
 } catch (\Exception $e) {
-    if (SXB_DEBUG) {
-        echo "<h1>Something went wrong...</h1>";
-        echo "<h2>Debug Mode</h2>";
-        echo $e->getMessage();
-    } else {
-        echo "Something went wrong...";
-    }
+    echo "Something went wrong..." . PHP_EOL;
+    echo $e->getMessage() . PHP_EOL;
 }
