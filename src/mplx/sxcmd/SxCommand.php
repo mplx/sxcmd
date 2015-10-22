@@ -60,7 +60,7 @@ abstract class SxCommand extends Command
             }
             $this->config = $yaml->parse($cfg);
         } catch (ParseException $e) {
-            $output->writeln('Unable to parse cluster configuration');
+            $output->writeln('<error>Unable to parse cluster configuration</error>');
         } catch (Exception $e) {
             $output->writeln($e->getMessage());
         }
