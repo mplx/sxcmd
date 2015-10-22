@@ -30,4 +30,4 @@ bin/sxcmd file:upload mplx-sx-public ./manifest.json download:/sxcmd/release/man
 
 # Commit new version
 git commit -m "Version ${TAG}" ./manifest.json
-git push mplx-gitlab ${TAG}
+git push --tags --progress "mplx-gitlab" master
