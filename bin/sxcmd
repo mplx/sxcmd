@@ -14,6 +14,7 @@ require __DIR__ . '/../vendor/autoload.php';
 
 use Symfony\Component\Console\Application;
 
+use mplx\sxcmd\FileUploadCommand;
 use mplx\sxcmd\UserListCommand;
 use mplx\sxcmd\VolumeListCommand;
 use mplx\sxcmd\VolumeLocateCommand;
@@ -24,9 +25,14 @@ set_time_limit(0);
 try {
 	$application = new Application('sxcmd', '@sxcmd_version@');
 
+    // File
+    $application->add(new FileUploadCommand());
+    // User
     $application->add(new UserListCommand());
+    // Volume
 	$application->add(new VolumeListCommand());
     $application->add(new VolumeLocateCommand());
+    // Selfupdate
     $application->add(new SelfUpdateCommand());
 
 	$application->run();
