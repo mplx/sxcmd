@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "name": "sxcmd.phar",
+        "version": "0.0.1",
+        "sha1": "74601b733d12feef2b3161ea6cd48c2f9bf12f97",
+        "url": "http:\/\/larry.viverto.com\/download\/sxcmd\/release\/?file=sxcmd-0.0.1.phar&forcedownload=1"
+    }
+]
