@@ -1,0 +1,5 @@
+cluster: 	cluster.domain.tld
+port:		443
+authkey:	XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+ssl:        true
+sslverify:  false
