@@ -5,10 +5,10 @@
         "vendor"
     ],
     "files": [
-        "LICENSE.txt",
-    ]
+        "LICENSE.txt"
+    ],
     "git-version": "sxcmd_version",
     "main": "bin/sxcmd",
-    "output": "build/sxcmd.phar",
+    "output": "build/sxcmd-@git-version@.phar",
     "stub": true
 }

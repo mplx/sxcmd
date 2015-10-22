@@ -10,16 +10,31 @@
  **/
 
 $fmanifest = __DIR__ . '/../manifest.json';
+$phar = __DIR__ . '/sxcmd-'.$argv[1].'.phar';
 
-$release = array(
-    'name' => 'sxcmd.phar',
-    'version' => $argv[1],
-    'sha1' => sha1_file(__DIR__ . '/sxcmd.phar'),
-    'url' => 'http://download.mplx.eu/sxcmd/release/sxcmd-'.$argv[1].'.phar'
-);
+if (file_exists($phar)) {
+    $sha1 = sha1_file($phar);
+} else {
+    echo "ERROR: target build not found!?" . PHP_EOL;
+    exit(74); // EX_IOERR
+}
 
-$data = file_get_contents($fmanifest);
-$data = json_decode($data);
-array_push($data, $release);
-$data = json_encode($data);
-file_put_contents($fmanifest, $data);
+try {
+    $release = array(
+        'name' => 'sxcmd.phar',
+        'version' => $argv[1],
+        'sha1' => $sha1,
+        'url' => 'http://larry.viverto.com/download/sxcmd/release/?file=sxcmd-'.$argv[1].'.phar&forcedownload=1'
+    );
+
+    $data = file_get_contents($fmanifest);
+    $data = json_decode($data);
+    array_push($data, $release);
+    $data = json_encode($data, JSON_PRETTY_PRINT);
+    file_put_contents($fmanifest, $data);
+} catch (Exception $e) {
+    echo "ERROR: failed building manifest..." . PHP_EOL;
+    exit(74); // EX_IOERR
+}
+
+exit(0); // EX_OK

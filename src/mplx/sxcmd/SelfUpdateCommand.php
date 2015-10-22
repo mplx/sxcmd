@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SelfUpdateCommand extends Command
 {
-    const MANIFEST_FILE = 'http://mplx.github.io/sxcmd/manifest.json';
+    const MANIFEST_FILE = 'http://larry.viverto.com/download/sxcmd/release/?file=manifest.json';
 
     protected function configure()
     {
@@ -34,6 +34,10 @@ class SelfUpdateCommand extends Command
         $currentversion = $this->getApplication()->getVersion();
 
         $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
-        $manager->update($currentversion, true);
+        if ($manager->update($currentversion, true)) {
+            $output->writeln(sprintf('<info>Successfully updated version %s to current release</info>', $currentversion));
+        } else {
+            $output->writeln('<comment>Already up to date</comment>');
+        }
     }
 }
