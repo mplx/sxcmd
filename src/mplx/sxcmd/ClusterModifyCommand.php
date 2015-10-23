@@ -18,9 +18,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Yaml\Parser;
 use Symfony\Component\Yaml\Dumper;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 use \Exception;
 
@@ -57,12 +57,16 @@ class ClusterModifyCommand extends Command
         }
 
         if (file_exists($source)) {
-            $yaml = new Parser();
-            $cfg = @file_get_contents($source);
+            $cfg = file_get_contents($source);
             if ($cfg === false) {
                 throw new Exception('Error reading cluster configuration');
             }
-            $config = $yaml->parse($cfg);
+            try {
+                $yaml = new Parser();
+                $config = $yaml->parse($cfg);
+            } catch (ParseException $e) {
+                throw new Exception('Unable to parse cluster configuration: ' . $source);
+            }
             $output->writeln('<info>Modifying cluster configuration ' . $cluster . '</info>');
         } else {
             $output->writeln('<info>Creating new cluster configuration ' . $cluster . '</info>');

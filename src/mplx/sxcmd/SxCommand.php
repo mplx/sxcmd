@@ -19,6 +19,7 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 use \Exception;
 
@@ -46,8 +47,12 @@ abstract class SxCommand extends Command
         $yaml = new Parser();
         $this->name = $input->getArgument('cluster');
 
+        if (!file_exists($this->configpath . $this->name . '.yml')) {
+            throw new Exception('Cannot find cluster configuration file: ' . $cluster);
+        }
+
         try {
-            $cfg = @file_get_contents($this->configpath . $this->name . '.yml');
+            $cfg = file_get_contents($this->configpath . $this->name . '.yml');
             if ($cfg === false) {
                 throw new Exception('Error reading cluster configuration');
             }
@@ -64,8 +69,8 @@ abstract class SxCommand extends Command
             $this->sx->setAuth($this->config['authkey']);
             $this->sx->setEndpoint($this->config['cluster']);
             $this->sx->setPort($this->config['port']);
-            if ($this->config['ssl'] == true) {
-                if (isset($this->config['sslverify']) && $this->config['sslverify'] == true) {
+            if ($this->config['ssl'] === true) {
+                if (isset($this->config['sslverify']) && $this->config['sslverify'] === true) {
                     $this->sx->setSSL(true, true);
                 } else {
                     $this->sx->setSSL(true, false);

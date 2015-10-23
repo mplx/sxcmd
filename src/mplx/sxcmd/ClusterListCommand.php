@@ -19,6 +19,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Finder\Finder;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 use \Exception;
 
@@ -40,16 +41,20 @@ class ClusterListCommand extends Command
         }
 
         $cluster = array();
-
         $finder = new Finder();
         $finder->name('*.yml')->in($home);
         foreach ($finder as $file) {
-            $yaml = new Parser();
-            $cfg = @file_get_contents($file->getRealpath());
+            $cfg = file_get_contents($file->getRealpath());
             if ($cfg === false) {
                 throw new Exception('Error reading cluster configuration');
             }
-            $cfg = $yaml->parse($cfg);
+
+            try {
+                $yaml = new Parser();
+                $cfg = $yaml->parse($cfg);
+            } catch (ParseException $e) {
+                throw new Exception('Unable to parse cluster configuration: ' . $file->getRealpath());
+            }
 
             $cluster[] = array(
                 'config' => $file->getRelativePathname(),

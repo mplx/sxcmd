@@ -60,22 +60,25 @@ class Util
     public static function getSxCmdDir()
     {
         if (isset($_SERVER['HOME'])) {
-            return $_SERVER['HOME'] . '/.sxcmd/';
+            return $_SERVER['HOME'] . DIRECTORY_SEPARATOR . '.sxcmd' . DIRECTORY_SEPARATOR;
         } elseif (isset($_SERVER['LOCALAPPDATA'])) {
-            return $_SERVER['LOCALAPPDATA'] . '\mplx\sxcmd';
+            return
+                $_SERVER['LOCALAPPDATA'] . DIRECTORY_SEPARATOR .
+                'mplx' . DIRECTORY_SEPARATOR .
+                'sxcmd' . DIRECTORY_SEPARATOR;
         } else {
-            $this->configpath = './';
+            return '.' . DIRECTORY_SEPARATOR;
         }
     }
 
     /**
-    * shorten auth key to 23 characters
+    * shorten auth key to 22 characters
     *
     * @param string $key
     * @return string
     */
     public static function shortenKey($key)
     {
-        return substr($key, 0, 10) . '...' . substr($key, -10, 10);
+        return substr($key, 0, 10) . '..' . substr($key, -10, 10);
     }
 }

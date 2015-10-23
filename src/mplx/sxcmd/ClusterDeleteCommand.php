@@ -17,7 +17,6 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Helper\Table;
 
 use \Exception;
 
@@ -40,7 +39,8 @@ class ClusterDeleteCommand extends Command
             throw new Exception('Cannot find sxcmd configuration directory: ' . $home);
         } elseif (!file_exists($home . $cluster)) {
             throw new Exception('Cannot find cluster configuration file: ' . $cluster);
+        } elseif (unlink($home . $cluster) === false) {
+            throw new Exception('Error removing file: ' . $home . $cluster);
         }
-
     }
 }

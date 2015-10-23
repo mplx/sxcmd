@@ -19,6 +19,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Exception\ParseException;
 
 use \Exception;
 
@@ -43,12 +44,18 @@ class ClusterShowCommand extends Command
             throw new Exception('Cannot find cluster configuration file: ' . $cluster);
         }
 
-        $yaml = new Parser();
-        $cfg = @file_get_contents($home . $cluster);
+
+        $cfg = file_get_contents($home . $cluster);
         if ($cfg === false) {
             throw new Exception('Error reading cluster configuration');
         }
-        $cfg = $yaml->parse($cfg);
+
+        try {
+            $yaml = new Parser();
+            $cfg = $yaml->parse($cfg);
+        } catch (ParseException $e) {
+            throw new Exception('Unable to parse cluster configuration: ' . $cluster);
+        }
 
         $table = new Table($output);
         $table->setStyle('default');
