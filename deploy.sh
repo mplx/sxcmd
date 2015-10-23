@@ -20,6 +20,11 @@ composer install --no-dev
 # Tag latest commit
 git tag ${TAG}
 
+# Remove previous build
+if [ -f ./build/sxcmd-${TAG}.phar]; then
+    rm -f ./build/sxcmd-${TAG}.phar
+fi
+
 # Build phar
 time box build
 

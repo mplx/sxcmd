@@ -26,6 +26,12 @@ use mplx\sxcmd\SelfUpdateCommand;
 
 set_time_limit(0);
 
+if (Phar::running(false) === '') {
+    error_reporting(E_ALL);
+} else {
+    error_reporting(E_ERROR);
+}
+
 try {
 	$application = new Application('sxcmd', '@sxcmd_version@');
 
