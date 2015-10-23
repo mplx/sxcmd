@@ -29,12 +29,12 @@ class FileUploadCommand extends SxCommand
     {
         parent::configure();
 
-        $this->setName('file:upload');
-        $this->setDescription('file upload');
-
-        $this->addArgument('source', InputArgument::REQUIRED);
-        $this->addArgument('target', InputArgument::REQUIRED);
-        $this->addOption('time', 't', InputOption::VALUE_NONE, 'time');
+        $this
+            ->setName('file:upload')
+            ->setDescription('file upload')
+            ->addArgument('source', InputArgument::REQUIRED)
+            ->addArgument('target', InputArgument::REQUIRED)
+            ->addOption('time', 't', InputOption::VALUE_NONE, 'time');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -46,7 +46,10 @@ class FileUploadCommand extends SxCommand
             throw new Exception('Source file does not exist');
         }
 
-        $output->writeln('Uploading file <info>' . $source . '</info> to volume <info>' . $target[0] . ':' . $target[1] . '</info>');
+        $output->writeln(
+            'Uploading file <info>' . $source . '</info> ' .
+            'to volume <info>' . $target[0] . ':' . $target[1] . '</info>'
+        );
 
         $start = microtime(true);
         $result = $this->sx->uploadFile($target[0], $target[1], $source);

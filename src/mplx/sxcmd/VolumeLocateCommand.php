@@ -24,11 +24,11 @@ class VolumeLocateCommand extends SxCommand
     {
         parent::configure();
 
-        $this->setName('volume:locate');
-        $this->setDescription('volume location information');
-
-        $this->addArgument('volume', InputArgument::REQUIRED);
-        $this->addOption('reverse-lookup', 'r', InputOption::VALUE_NONE, 'reverse dns lookup');
+        $this
+            ->setName('volume:locate')
+            ->setDescription('volume location information')
+            ->addArgument('volume', InputArgument::REQUIRED)
+            ->addOption('reverse-lookup', 'r', InputOption::VALUE_NONE, 'reverse dns lookup');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -35,7 +35,9 @@ class SelfUpdateCommand extends Command
 
         $manager = new Manager(Manifest::loadFile(self::MANIFEST_FILE));
         if ($manager->update($currentversion, true)) {
-            $output->writeln(sprintf('<info>Successfully updated version %s to current release</info>', $currentversion));
+            $output->writeln(
+                sprintf('<info>Successfully updated version %s to current release</info>', $currentversion)
+            );
         } else {
             $output->writeln('<comment>Already up to date</comment>');
         }

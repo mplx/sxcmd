@@ -15,8 +15,6 @@ use mplx\sxcmd\Util;
 use mplx\skylablesx\SxException;
 
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
@@ -29,8 +27,9 @@ class UserListCommand extends SxCommand
     {
         parent::configure();
 
-        $this->setName('user:list');
-        $this->setDescription('user list (requires admin permissions)');
+        $this
+            ->setName('user:list')
+            ->setDescription('user list (requires admin permissions)');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

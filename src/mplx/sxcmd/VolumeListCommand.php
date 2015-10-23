@@ -26,8 +26,9 @@ class VolumeListCommand extends SxCommand
     {
         parent::configure();
 
-        $this->setName('volume:list');
-        $this->setDescription('volume list');
+        $this
+            ->setName('volume:list')
+            ->setDescription('volume list');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
