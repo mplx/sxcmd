@@ -40,8 +40,42 @@ class Util
         return $size . ' ' . $sizetype[$i];
     }
 
+    /**
+    * reverse IP lookup
+    *
+    * @param string $ip target IP
+    * @param boolean $lookup really do a lookup?
+    * @return string
+    */
     public static function rDns($ip, $lookup = true)
     {
         return $lookup ?gethostbyaddr($ip) : $ip;
+    }
+
+    /**
+    * return sxcmd home directory
+    *
+    * @return string
+    */
+    public static function getSxCmdDir()
+    {
+        if (isset($_SERVER['HOME'])) {
+            return $_SERVER['HOME'] . '/.sxcmd/';
+        } elseif (isset($_SERVER['LOCALAPPDATA'])) {
+            return $_SERVER['LOCALAPPDATA'] . '\mplx\sxcmd';
+        } else {
+            $this->configpath = './';
+        }
+    }
+
+    /**
+    * shorten auth key to 23 characters
+    *
+    * @param string $key
+    * @return string
+    */
+    public static function shortenKey($key)
+    {
+        return substr($key, 0, 10) . '...' . substr($key, -10, 10);
     }
 }

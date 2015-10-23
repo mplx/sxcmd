@@ -12,10 +12,10 @@
 namespace mplx\sxcmd;
 
 use mplx\skylablesx\Sx;
+use mplx\sxcmd\Util;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Yaml\Parser;
@@ -31,14 +31,7 @@ abstract class SxCommand extends Command
 
     public function __construct()
     {
-        if (isset($_SERVER['HOME'])) {
-            $this->configpath = $_SERVER['HOME'] . '/.sxcmd/';
-        }elseif (isset($_SERVER['LOCALAPPDATA'])) {
-            $this->configpath = $_SERVER['LOCALAPPDATA'] . '\mplx\sxcmd';
-        } else {
-            $this->configpath = './';
-        }
-
+        $this->configpath = Util::getSxCmdDir();
 
         parent::__construct();
     }
@@ -60,9 +53,10 @@ abstract class SxCommand extends Command
             }
             $this->config = $yaml->parse($cfg);
         } catch (ParseException $e) {
-            $output->writeln('<error>Unable to parse cluster configuration</error>');
+            throw new Exception('Unable to parse cluster configuration');
         } catch (Exception $e) {
-            $output->writeln($e->getMessage());
+            $output->writeln('<error>' . $e->getMessage() . '</error>');
+            die();
         }
 
         try {
@@ -80,7 +74,7 @@ abstract class SxCommand extends Command
                 $this->sx->setSSL(false);
             }
         } catch (Exception $e) {
-
+            $output->writeln('<error>Connection failed: ' . $e->getMessage() . '</error>');
         }
     }
 }
