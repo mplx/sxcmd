@@ -95,7 +95,6 @@ class ClusterModifyCommand extends Command
             $yaml = $dumper->dump($config, 1);
             file_put_contents($target, $yaml);
         } else {
-            dump($config);
             $output->writeln('<error>Cluster configuration incomplete. Aborted</error>');
         }
     }
