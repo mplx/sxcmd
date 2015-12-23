@@ -3,7 +3,7 @@
 ## Installation
 
 ```bash
-curl -LSs -o sxcmd.phar http://larry.viverto.com/download/sxcmd/release/?file=sxcmd-latest.phar
+curl -LSs -o sxcmd.phar http://download.mplx.eu/download/sxcmd/release/?file=sxcmd-latest.phar
 chmod +x sxcmd.phar && mv sxcmd.phar /usr/local/bin/sxcmd
 ```
 

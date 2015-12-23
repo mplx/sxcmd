@@ -20,7 +20,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class SelfUpdateCommand extends Command
 {
-    const MANIFEST_FILE = 'http://larry.viverto.com/download/sxcmd/release/?file=manifest.json';
+    const MANIFEST_FILE = 'http://download.mplx.eu/download/sxcmd/release/?file=manifest.json';
 
     protected function configure()
     {

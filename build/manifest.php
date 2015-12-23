@@ -24,7 +24,7 @@ try {
         'name' => 'sxcmd.phar',
         'version' => $argv[1],
         'sha1' => $sha1,
-        'url' => 'http://larry.viverto.com/download/sxcmd/release/?file=sxcmd-'.$argv[1].'.phar&forcedownload=1'
+        'url' => 'http://download.mplx.eu/download/sxcmd/release/?file=sxcmd-'.$argv[1].'.phar&forcedownload=1'
     );
 
     $data = file_get_contents($fmanifest);
