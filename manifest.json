@@ -10,5 +10,11 @@
         "version": "0.0.2",
         "sha1": "a86342d24a56e80913b4834c37a9c1f6f53d95f0",
         "url": "http:\/\/download.mplx.eu\/download\/sxcmd\/release\/?file=sxcmd-0.0.2.phar&forcedownload=1"
+    },
+    {
+        "name": "sxcmd.phar",
+        "version": "0.0.3",
+        "sha1": "3c237e0b16de705c0dc7ea27cacc5608517e102f",
+        "url": "http:\/\/download.mplx.eu\/download\/sxcmd\/release\/?file=sxcmd-0.0.3.phar&forcedownload=1"
     }
 ]
