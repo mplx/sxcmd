@@ -21,7 +21,7 @@ composer install --no-dev
 git tag ${TAG}
 
 # Remove previous build
-if [ -f ./build/sxcmd-${TAG}.phar]; then
+if [ -f ./build/sxcmd-${TAG}.phar ]; then
     rm -f ./build/sxcmd-${TAG}.phar
 fi
 
